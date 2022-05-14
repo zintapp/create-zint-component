@@ -1,0 +1,7 @@
+{ "scope": "/*** componentNameLowerCase ***/", 
+  "exposes": {
+      "/*** componentNameCamelCase ***/": "./src/Component" 
+  }, 
+  "stub":"react17-rxjs-alpha", 
+  "stubVersion": "0.0.1"
+}

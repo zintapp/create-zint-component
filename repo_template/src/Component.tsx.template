@@ -1,0 +1,44 @@
+import React from "react";
+import { Buffer } from 'buffer';
+import { Observable, pluck } from "rxjs"
+
+/*** dataProcessingImports ***/
+
+
+interface DataChunk {
+    data: Buffer
+}
+
+// Zint will pass component arguments as props
+// example: zint component -f --max_number 10 would result in 
+// { f: true, max_number: 10 }
+
+// the following interface can be used to describe the arguments expected structure
+interface ComponentArguments {
+}
+
+interface Props extends ComponentArguments {
+    data$: Observable<DataChunk>
+}
+
+const /*** componentNameCamelCase ***/ = (props: Props) => {
+    
+    const [data, setData] = React.useState('')
+
+    React.useEffect( () => {
+        const subscription = props.data$.pipe(
+            pluck('data'),
+           /*** dataPipeline ***/
+        ).subscribe((data: /*** outputDataType ***/) => setData(data))
+        
+        return () => subscription.unsubscribe()
+    }, []);
+
+    return <div style={{backgroundColor: 'white'}}>
+        <pre>
+        {data}
+        </pre>
+    </div>
+
+}
+export default /*** componentNameCamelCase ***/;

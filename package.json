@@ -6,13 +6,25 @@
   "scripts": {
     "build": "tsc -b",
     "start": "tsc -w",
-    "launch": "node ./dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "launch": "rm -rf ./dist && tsc -b && cp -r ./repo_template ./dist/ && node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write ."
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "bin": "./dist/index.js",
   "license": "MIT",
   "devDependencies": {
-    "inquirer": "^8.2.4"
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^8.2.1",
+    "@types/mkdirp": "^1.0.2",
+    "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "commander": "^9.2.0",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^8.2.4",
+    "replace-in-file": "^6.3.2"
   }
 }
