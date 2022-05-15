@@ -1,6 +1,6 @@
 {
   "name": "create-zint-component",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "helper to initiate a repo for a zint component",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "dist"
   ],
   "bin": "./dist/index.js",
-  "repository": "https://github.com/zintapp/utils",
+  "repository": "https://github.com/zintapp/create-zint-component",
   "author": "Zint (Guillaume de Cagny) <hello@zint.app>",
   "license": "MIT",
   "private": false,

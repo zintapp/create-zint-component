@@ -28,7 +28,7 @@ const /*** componentNameCamelCase ***/ = (props: Props) => {
         return () => subscription.unsubscribe()
     }, []);
 
-    return <div style={{color: 'white'}}>
+    return <div>
         <pre>
         {data}
         </pre>
