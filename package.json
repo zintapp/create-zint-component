@@ -1,6 +1,6 @@
 {
   "name": "create-zint-component",
-  "version": "0.0.1-0.0.1",
+  "version": "0.0.1",
   "description": "helper to initiate a repo for a zint component",
   "main": "index.js",
   "scripts": {
@@ -8,13 +8,17 @@
     "start": "tsc -w",
     "launch": "rm -rf ./dist && tsc -b && cp -r ./repo_template ./dist/ && node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prepack": "rm -rf ./dist && tsc -b && cp -r ./repo_template ./dist/"
   },
   "files": [
     "dist"
   ],
   "bin": "./dist/index.js",
+  "repository": "https://github.com/zintapp/utils",
+  "author": "Zint (Guillaume de Cagny) <hello@zint.app>",
   "license": "MIT",
+  "private": false,
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^8.2.1",
