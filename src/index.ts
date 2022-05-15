@@ -134,7 +134,7 @@ const buildDataPipeline = (config: RepoConfig) => {
     .map((mod) => `import { ${toImport[mod].join(", ")} } from '${mod}'`)
     .join("\n");
 
-  const dataPipeline = steps.join(",\n");
+  const dataPipeline = steps.join(",\n            ");
   return {
     dataProcessingImports,
     dataPipeline,
