@@ -9,21 +9,15 @@ interface DataChunk {
     data: Buffer
 }
 
-// Zint will pass component arguments as props
-// example: zint component -f --max_number 10 would result in 
-// { f: true, max_number: 10 }
 
-// the following interface can be used to describe the arguments expected structure
-interface ComponentArguments {
-}
-
-interface Props extends ComponentArguments {
+interface Props  {
     data$: Observable<DataChunk>
+    componentArgs: string
 }
 
 const /*** componentNameCamelCase ***/ = (props: Props) => {
     
-    const [data, setData] = React.useState('')
+    const [data, setData] = React.useState</*** outputDataType ***/>()
 
     React.useEffect( () => {
         const subscription = props.data$.pipe(
@@ -34,7 +28,7 @@ const /*** componentNameCamelCase ***/ = (props: Props) => {
         return () => subscription.unsubscribe()
     }, []);
 
-    return <div style={{backgroundColor: 'white'}}>
+    return <div style={{color: 'white'}}>
         <pre>
         {data}
         </pre>

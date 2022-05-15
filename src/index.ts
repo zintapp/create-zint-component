@@ -12,7 +12,6 @@ interface RepoConfig {
   encoding?: string;
   split?: boolean;
   json?: boolean;
-  linesAggregation?: string;
 }
 
 const inquireConfig = async () => {
@@ -73,27 +72,6 @@ const inquireConfig = async () => {
       },
     ]);
     config = { ...config, ...answers };
-
-    if (config.split) {
-      answers = await inquirer.prompt([
-        {
-          type: "list",
-          name: "linesAggregation",
-          message: "Data split by lines : which lines should we keep ?",
-          choices: [
-            {
-              value: "all",
-              name: "Keep all the lines into an array",
-            },
-            {
-              value: "last",
-              name: "Only keep the last line and overwrite it each time a new line arrives",
-            },
-          ],
-        },
-      ]);
-      config = { ...config, ...answers };
-    }
   }
 
   return config;
@@ -126,15 +104,9 @@ const buildDataPipeline = (config: RepoConfig) => {
       toImport[zu].push("decode");
       outputDataType = "string";
 
-      steps.push("splitByRegex(/\\r?\\n/)");
-      toImport[zu].push("splitByRegex");
-      outputDataType = "string[]";
-
-      if (config.linesAggregation === "last") {
-        steps.push("keepLastOnly()");
-        toImport[zu].push("keepLastOnly");
-        outputDataType = "string";
-      }
+      steps.push("splitByLines()");
+      toImport[zu].push("splitByLines");
+      outputDataType = "string";
 
       if (config.json) {
         steps.push("map(o => JSON.parse(o))");
