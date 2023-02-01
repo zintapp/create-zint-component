@@ -33,8 +33,8 @@ const inquireConfig = async () => {
 
       message: "Stream processing : what type of data is expected ?",
       choices: [
-        { value: "binary", name: "Binary data in a Buffer (ex: image data)" },
         { value: "text", name: "String data (ex: text, JSON, ...)" },
+        { value: "binary", name: "Binary data in a Buffer (ex: image data)" },
       ],
     },
   ]);
@@ -53,11 +53,11 @@ const inquireConfig = async () => {
         name: "split",
         message: "Split the data as a stream of lines?",
         choices: [
-          { value: true, name: "Split by lines, send them as they arrive" },
           {
             value: false,
             name: "Send the data all at once in one string at the end",
           },
+          { value: true, name: "Split by lines, send them as they arrive" },
         ],
       },
       {
@@ -66,8 +66,8 @@ const inquireConfig = async () => {
         message:
           "Should the data be parsed as JSON ? (if you selected split by lines, it means each line has to be a JSON object)",
         choices: [
-          { value: true, name: "yes" },
           { value: false, name: "no" },
+          { value: true, name: "yes" },
         ],
       },
     ]);
@@ -134,7 +134,7 @@ const buildDataPipeline = (config: RepoConfig) => {
     .map((mod) => `import { ${toImport[mod].join(", ")} } from '${mod}'`)
     .join("\n");
 
-  const dataPipeline = steps.join(",\n            ");
+  const dataPipeline = steps.join(",\n        ");
   return {
     dataProcessingImports,
     dataPipeline,

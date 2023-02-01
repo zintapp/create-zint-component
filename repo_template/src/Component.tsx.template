@@ -4,35 +4,64 @@ import { Observable, pluck } from "rxjs"
 
 /*** dataProcessingImports ***/
 
-
 interface DataChunk {
     data: Buffer
 }
 
+interface BaseProps {
+    componentArgs: string[]
+    componentName: string
+    stdout: (data: any, encoding?: string ) => void
+    closeStdout: () => void
+    close: () => void
+}
 
-interface Props  {
+interface RawProps extends BaseProps {
     data$: Observable<DataChunk>
-    componentArgs: string
+}
+
+type StateData = /*** outputDataType ***/
+
+interface Props extends BaseProps {
+    data: StateData
+}
+
+export function getHelpText() {
+    return "/*** componentNameCamelCase ***/ help text"
+}
+
+export const pipeObservable = (data$: Observable<DataChunk>): Observable<StateData> => {
+    return data$.pipe(pluck('data'), 
+        /*** dataPipeline ***/
+    )
+}
+
+const ZintWrapper = (props: RawProps) => {
+
+
+    const [data, setData] = React.useState<StateData>()
+    
+    const {data$, ...rest} = props
+    React.useEffect( () => {
+        const subscription = pipeObservable(data$)
+            .subscribe((data: StateData) => setData(data))
+
+        return () => subscription.unsubscribe()
+    }, [])
+
+    return data !== undefined ? </*** componentNameCamelCase ***/ data={data} {...rest} /> : null
 }
 
 const /*** componentNameCamelCase ***/ = (props: Props) => {
     
-    const [data, setData] = React.useState</*** outputDataType ***/>()
+    // insert your component code here!
 
-    React.useEffect( () => {
-        const subscription = props.data$.pipe(
-            pluck('data'),
-           /*** dataPipeline ***/
-        ).subscribe((data: /*** outputDataType ***/) => setData(data))
-        
-        return () => subscription.unsubscribe()
-    }, []);
-
-    return <div>
+    return <div style={{color: 'white'}}>
         <pre>
-        {data}
+        {props.data}
         </pre>
     </div>
 
 }
-export default /*** componentNameCamelCase ***/;
+
+export default ZintWrapper;
